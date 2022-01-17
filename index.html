@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <h1>hello {{userName}}</h1>
+        <input type="text" v-model="userName">
+        <p v-if="userName.length>9">user name is too long!</p>
+        <button v-on:click="addItem">addItem</button>
+        <button @click="popItem">popItem</button>
+        <button @click="fetchTodos">fetchTodos</button>
+        <p>{{frameworks}}</p>
+        <ul>
+            <li v-for="framework in frameworks">{{framework}}</li>
+        </ul>
+        <ul>
+            <li v-for="todo in todos">{{todo.title}}</li>
+        </ul>
+        <h2 :class="{many: completedTodos>12}">
+            완료된 todo는 총 {{completedTodos}}
+        </h2>
+        <ul>
+            <li v-for="(todo,index) in todos">{{todo.completed}}
+                <button @click="completeTodo(index)">완료</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        const app=new Vue({
+            el:"#app",
+            data:{
+                userName:"clara",
+                frameworks:['react','vue','js'],
+                todos:[]
+            },
+            computed:{
+                completedTodos:function(){
+                    return this.todos.filter(todo=>todo.completed===true).length
+                    
+                }
+            },
+            methods:{
+                addItem:function(){
+                    console.log('add item work '+this.userName)
+                    // this사용=>뷰라는 객체 안에 들어있는 property 사용하므로
+                    this.frameworks.push('java')
+                },
+                popItem:function(){
+                    this.frameworks.pop()
+                },
+                fetchTodos:function(){
+                    fetch("https://jsonplaceholder.typicode.com/todos?_start=0&_end=20")
+                    .then(res=>res.json())
+                    // .then(data=>console.log(data))
+                    .then(data=>{
+                        console.log(data)
+                        this.todos=data
+                    })
+                },
+                completeTodo:function(index){
+                    this.todos[index].completed=true;
+                }
+            }
+        });
+    </script>
+    <style>
+        .many{
+            color:red;
+        }
+    </style>
+</body>
+</html>
