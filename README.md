@@ -1,0 +1,2 @@
+- [code Scalper vue.js 맛보기](https://www.youtube.com/watch?v=QtQ-xbLyaqI)
+- basic vue.js 연습
