@@ -1,2 +1,2 @@
-- [code Scalper vue.js 맛보기](https://www.youtube.com/watch?v=QtQ-xbLyaqI)
-- basic vue.js 연습
+- [code Scalper vue.js 맛보기](https://www.youtube.com/watch?v=QtQ-xbLyaqI)를 통한 basic vue.js 연습
+- [고양이도 할 수 있는 vue.js 투두리스트](https://rintiantta.github.io/jpub-vue/tutorials/todo.html)를 통한 vue.js 연습
