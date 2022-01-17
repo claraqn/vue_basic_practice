@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vue.js App</title>
+    <link rel="stylesheet" href="./main.css" />
+  </head>
+  <body>
+    <div id="app">
+      <h1>튜토리얼Todo 리스트</h1>
+
+      <!-- 전체,작업중,완료 표시 -->
+      <label v-for="label in options">
+        <input type="radio" v-model="current" v-bind:value="label.value" />
+        {{label.label }}
+      </label>
+
+      ({{ computedTodos.length }} 개의 결과 출력하기)
+
+      <table>
+        <thead v-pre>
+          <tr>
+            <th class="id">ID</th>
+            <th class="comment">내용</th>
+            <th class="state">상태</th>
+            <th class="button">-</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- todolist -->
+          <tr
+            v-for="item in computedTodos"
+            v-bind:key="item.id"
+            v-bind:class="{done:item.state}"
+          >
+            <th>{{ item.id }}</th>
+            <td>{{ item.comment }}</td>
+            <td class="state">
+              <button v-on:click="doChangeState(item)">
+                {{ labels[item.state] }}
+              </button>
+            </td>
+            <td class="button">
+              <!-- ★STEP10 제거 버튼 -->
+              <button v-on:click.ctrl="doRemove(item)">제거</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>※ 제거 버튼은 컨트롤 키를 누르고 클릭하세요.</p>
+
+      <!-- ★STEP6 -->
+      <h2>새로운 작업 추가</h2>
+      <form class="add-form" v-on:submit.prevent="doAdd">
+        <!-- 내용 입력 양식 -->
+        내용 <input type="text" ref="comment" />
+        <!-- 추가 버튼 목업 -->
+        <button type="submit">추가</button>
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
